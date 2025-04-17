@@ -1,0 +1,5 @@
+langchain
+langchain-openai
+dash
+dash-bootstrap-components
+pydantic

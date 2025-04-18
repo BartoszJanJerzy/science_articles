@@ -1,5 +1,6 @@
 langchain
 langchain-openai
+langchain-google-genai
 dash
 dash-bootstrap-components
 pydantic

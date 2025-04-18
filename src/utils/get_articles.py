@@ -1,7 +1,7 @@
 import bs4
 import urllib, urllib.request
 from datetime import datetime
-from src.schema import Article
+from src.schema import Article, SearchSchema, SearchKeyword
 
 
 class ArticlesMetadataLoader:
@@ -12,24 +12,24 @@ class ArticlesMetadataLoader:
 
     def load(
             self,
-            query: str,
+            search_params: SearchSchema,
             start: int = 0,
-            max_results: int = 1,
-            date_min: str | None = "20200101",
-            date_max: str | None = None
+            max_results: int = 10,
     ) -> list[Article]:
         assert max_results > 0
 
-        if not date_max:
-            now = datetime.now()
-            y = now.year
-            m = f"0{now.month}" if now.month < 10 else str(now.month)
-            d = f"0{now.day}" if now.day < 10 else str(now.day)
-            date_max = f"{y}{m}{d}"
+        if not search_params.date_max:
+            search_params.date_max = self.count_max_date()
 
         results = []
         while start < max_results:
-            file = self.run_request(query, start, 1, date_min, date_max)
+            file = self.run_request(
+                query=self.create_query(search_params.keywords),
+                start=start,
+                max_results=1,
+                date_min=search_params.date_min,
+                date_max=search_params.date_max
+            )
             results.append(Article(**self.parse_single_record(file)))
             start += 1
 
@@ -70,3 +70,19 @@ class ArticlesMetadataLoader:
             published=published
         )
 
+    @staticmethod
+    def count_max_date():
+        now = datetime.now()
+        y = now.year
+        m = f"0{now.month}" if now.month < 10 else str(now.month)
+        d = f"0{now.day}" if now.day < 10 else str(now.day)
+        date_max = f"{y}{m}{d}"
+        return date_max
+
+    @staticmethod
+    def create_query(keywords: list[SearchKeyword]):
+        query = f"{keywords[0].category}:{keywords[0].value}"
+        if len(keywords) > 1:
+            for i in range(1, len(keywords)):
+                query += f"+AND+{keywords[i].category}:{keywords[i].value}"
+        return query

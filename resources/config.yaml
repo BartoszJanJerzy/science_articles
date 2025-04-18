@@ -1,3 +1,8 @@
 openai_chat_model: 'gpt-4o-mini'
 gemini_chat_model: ''
 ai_provider: 'openai'
+initial_message: "
+Hi! I'am your assistant. 
+I want to talk to you about articles you need. 
+Firstly, let's discuss your current scientific interest.
+"

@@ -8,6 +8,7 @@ class Config:
     openai_chat_model: str
     gemini_chat_model: str
     ai_provider: str
+    initial_message: str
 
 
 config = Config(**yaml.safe_load(open(os.path.join("resources", "config.yaml"))))

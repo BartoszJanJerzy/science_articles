@@ -1,0 +1,55 @@
+body {
+    padding: 100px;
+}
+
+.page {
+    display: flex-wrap;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#chatPage {
+    border-left: 1px solid silver;
+    padding-left: 20px;
+    width: 70%;
+    min-width: 500px;
+}
+#messagesDiv {
+    max-height: 550px;
+    overflow-y: scroll;
+}
+.aiMessage {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+.aiMessage P {
+    width: 40%;
+    min-width: 400px;
+    background-color: rgba(217, 217, 217, 0.5);
+    border-radius: 0px 10px 10px 10px;
+    padding: 5px;
+}
+.humanMessage {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+.humanMessage P {
+    width: 40%;
+    min-width: 400px;
+    background-color: rgba(60, 110, 113, 0.5);
+    border-radius: 10px 0px 10px 10px;
+    padding: 5px;
+    position: relative;
+    right: 0px;
+}
+#userMessage {
+    width: 50%;
+    min-width: 500px
+}
+#sendMessage {
+    width: 100px;
+    margin-top: 5px;
+}
